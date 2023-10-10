@@ -36,6 +36,7 @@ export const students = {
     },
     getters: {
         getStudentsData(state) {
+            console.log(state.students);
             return state.students;
         },
     }

@@ -124,7 +124,7 @@ export default {
     <Toast/>
     <ConfirmDialog></ConfirmDialog>
     <div class="tabWrapper">
-      <h1>fДобавление/Редактирование/Просмотр данных</h1>
+      <h1>Добавление/Редактирование/Просмотр данных</h1>
       <TabView>
         <TabPanel header="Студенты">
           <DataTable :value="studentData" stripedRows tableStyle="min-width: 50rem">
