@@ -11,6 +11,7 @@ class StudentGroupRegistration extends Model
 
     protected $table = 'student_group_registrations';
 
+    protected $guarded = false;
     public function studentGroup()
     {
         return $this->belongsTo(StudentGroup::class);

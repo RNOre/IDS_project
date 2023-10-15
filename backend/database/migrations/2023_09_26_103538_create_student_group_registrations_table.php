@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::create('student_group_registrations', function (Blueprint $table) {
             $table->id();
             $table->date('enrollmentDate');
-            $table->date('deductionDate');
+            $table->date('deductionDate')->nullable();
             $table->timestamps();
 
             $table->unsignedBigInteger('student_id');

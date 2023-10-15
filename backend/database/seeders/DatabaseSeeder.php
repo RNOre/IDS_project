@@ -27,7 +27,7 @@ class DatabaseSeeder extends Seeder
         AverageBall::factory(40)->create();
         TypeIndivAchiv::factory(3)->create();
         IndivAchivBall::factory(40)->create();
-        EducInst::factory(2)->create();
+        EducInst::factory(1)->create();
         StudentGroup::factory(5)->create();
         StudentGroupRegistration::factory(10)->create();
         Level::factory(5)->create();
