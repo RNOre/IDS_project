@@ -53,4 +53,11 @@ class Service
         $student = Student::find($id);
         $student->delete();
     }
+
+    public function test()
+    {
+        $student=Student::all();
+//        foreach ($student->)
+        return $student;
+    }
 }

@@ -36,4 +36,9 @@ class StudentController extends BaseController
 
         return response(200);
     }
+
+    public function test()
+    {
+        dd($this->service->test());
+    }
 }

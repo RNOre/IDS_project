@@ -27,6 +27,8 @@ Route::get('/v1/students/{student}', [StudentController::class, 'show'])->name('
 Route::delete('/v1/students/{id}', [StudentController::class, 'destroy'])->name('student.destroy');
 Route::post('/v1/students', [StudentController::class, 'store'])->name('student.store');
 
+Route::get('/v1/test', [StudentController::class, 'test']);
+
 Route::get('/v1/groups', [StudentGroupController::class, 'index'])->name('studentGroup.index');
 
 
