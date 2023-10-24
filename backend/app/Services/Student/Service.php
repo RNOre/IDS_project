@@ -2,14 +2,17 @@
 
 namespace App\Services\Student;
 
+use App\Models\Event;
 use App\Models\Student;
 use App\Models\StudentGroupRegistration;
 use Illuminate\Support\Facades\DB;
 
 class Service
 {
-    public function index()
+    public function indexEvent()
     {
+        $events = Event::all();
+        return $events;
     }
 
     public function show($student)
@@ -56,7 +59,7 @@ class Service
 
     public function test()
     {
-        $student=Student::all();
+        $student = Student::all();
 //        foreach ($student->)
         return $student;
     }

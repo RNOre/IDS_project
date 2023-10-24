@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Event\EventController;
 use App\Http\Controllers\Student\StudentController;
 use App\Http\Controllers\StudentGroup\StudentGroupController;
 use App\Http\Controllers\Test;
@@ -26,6 +27,8 @@ Route::get('/v1/students', [StudentController::class, 'index'])->name('student.i
 Route::get('/v1/students/{student}', [StudentController::class, 'show'])->name('student.show');
 Route::delete('/v1/students/{id}', [StudentController::class, 'destroy'])->name('student.destroy');
 Route::post('/v1/students', [StudentController::class, 'store'])->name('student.store');
+
+Route::get('/v1/events', [EventController::class, 'index']);
 
 Route::get('/v1/test', [StudentController::class, 'test']);
 
