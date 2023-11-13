@@ -13,4 +13,10 @@ class EventController extends Controller
         $events= $this->service->indexEvent();
         return $events;
     }
+
+    public function journal()
+    {
+        $eventsData = $this->service->journalData();
+        return $eventsData;
+    }
 }

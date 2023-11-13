@@ -21,8 +21,6 @@ class Event extends Model
 
     public function partificationFact()
     {
-        return $this->belongsTo(PartificationFact::class);
+        return $this->hasMany(PartificationFact::class);
     }
-
-
 }

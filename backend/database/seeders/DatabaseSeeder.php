@@ -15,6 +15,7 @@ use App\Models\StudentGroup;
 use App\Models\StudentGroupRegistration;
 use App\Models\TypeIndivAchiv;
 use Illuminate\Database\Seeder;
+use Illuminate\Support\Facades\DB;
 
 class DatabaseSeeder extends Seeder
 {
@@ -23,6 +24,18 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
+
+        $levels = array(
+            array('name'=>'Факультетский', 'shortName'=>'Фак.'),
+            array('name'=>'Ведомственный', 'shortName'=>'Вед.'),
+            array('name'=>'Региональный', 'shortName'=>'Рег.'),
+            array('name'=>'Всероссийский', 'shortName'=>'Всеросс.'),
+            array('name'=>'Международный', 'shortName'=>'Межд.'));
+
+        $scales = array(
+
+        );
+
         Student::factory(10)->create();
         AverageBall::factory(40)->create();
         TypeIndivAchiv::factory(3)->create();
@@ -30,7 +43,8 @@ class DatabaseSeeder extends Seeder
         EducInst::factory(1)->create();
         StudentGroup::factory(5)->create();
         StudentGroupRegistration::factory(10)->create();
-        Level::factory(5)->create();
+//        Level::factory(5)->create();
+        DB::table(('level'))->insert($levels);
         Scale::factory(5)->create();
         Event::factory(5)->create();
         PartificationFact::factory(5)->create();

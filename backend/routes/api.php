@@ -29,6 +29,7 @@ Route::delete('/v1/students/{id}', [StudentController::class, 'destroy'])->name(
 Route::post('/v1/students', [StudentController::class, 'store'])->name('student.store');
 
 Route::get('/v1/events', [EventController::class, 'index']);
+Route::get('/v1/journal', [EventController::class, 'journal']);
 
 Route::get('/v1/test', [StudentController::class, 'test']);
 
@@ -36,7 +37,7 @@ Route::get('/v1/groups', [StudentGroupController::class, 'index'])->name('studen
 
 
 
-Route::get('/v1/testValue', [Test::class, 'index'])->name('test.index');
+Route::post('/v1/testValue', [Test::class, 'index'])->name('test.index');
 Route::get('/v1/fuzzy', [Test::class, 'fuzzy']);
 Route::post('/v1/validate', [Test::class, 'validTest']);
 Route::get('/v1/response', [Test::class, 'respTest']);
