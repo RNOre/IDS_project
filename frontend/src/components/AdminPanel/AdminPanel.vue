@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="adminPanel">
       <router-link v-for="item in linkData" :key="item.index" :to="item.link">
         <div class='wrapper' >
           <h1>{{ item.title }}</h1>
@@ -15,25 +15,45 @@ export default {
   data() {
     return {
       linkData: [
+        // {
+        //   title: 'Главное меню',
+        //   description:'Навигация приложения',
+        //   link: '/adminPanel'
+        // },
         {
-          title: 'Данные',
-          description: 'Информация о мероприятиях и студентах',
-          link: '/dataPanel'
+          title: 'Мероприятия',
+          description:'Изменение информации о мероприятиях',
+          link: '/events'
         },
         {
-          title: 'Отчет',
-          description: 'Расчет уровня индивидуальных достижений',
-          link: '/reportPanel'
+          title: 'Студенты',
+          description:'Изменение информации о студентах',
+          link: '/students'
         },
         {
           title: 'Журнал',
-          description: 'Информация об индивилуальных баллах достижений',
-          link: '/journalPanel'
+          description:'Ведение сведений об участии студентов в мероприятиях',
+          link: '/journal'
+        },
+        {
+          title: 'Рейтинг',
+          description:'Список студентов',
+          link: '/score'
+        },
+        {
+          title: 'Редактор модели',
+          description:'Изменение работы метода',
+          link: '/model'
         },
         {
           title: 'Справка',
-          description: 'Справочная информация об алгоритме раоты с ПИС',
+          description:'Справка приложения',
           link: '/helpPanel'
+        },
+        {
+          title: 'Справочник',
+          description:'Изменение справочных данных',
+          link: '/guide'
         },
       ]
     }
@@ -42,6 +62,13 @@ export default {
 </script>
 
 <style>
+.adminPanel{
+  padding: 50px;
+  display:flex;
+  gap:60px;
+  justify-content: space-around;
+  flex-wrap:wrap;
+}
 .title {
   text-align: center;
 }
@@ -59,7 +86,7 @@ export default {
 }
 
 .wrapper {
-  width: 250px;
+  width: 200px;
   height: 200px;
   background-color: white;
   box-shadow: 7px 7px 14px 0px grey;
@@ -67,7 +94,7 @@ export default {
   color: black;
   padding: 20px;
   border-radius: 5px;
-  transition: 1s;
+  transition: 0.5s;
 }
 
 .wrapper:hover {

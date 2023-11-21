@@ -9,6 +9,7 @@ class StudentGroupRegistration extends Model
 {
     use HasFactory;
 
+
     protected $table = 'student_group_registrations';
 
     protected $guarded = false;

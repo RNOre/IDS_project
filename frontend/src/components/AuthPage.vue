@@ -7,7 +7,8 @@ export default {
     return {
       login: '',
       password: '',
-      response: ''
+      response: '',
+      error: ''
     }
   },
   methods: {
@@ -19,37 +20,45 @@ export default {
       }
 
       let resp = await axios.post(
-          'http://127.0.0.1:8000/api/v1/testValue',
-          data)
-
-      //     .then(res => res.status);
-      // if (resp == 200) {
-      //   this.$router.push('/adminPanel');
-      // }
+          'http://127.0.0.1:8876/api/v1/testValue', data)
+          .then(res => res.status);
+      if (resp == 200) {
+        this.$router.push('/adminPanel');
+        this.error = '';
+      } else {
+        this.error = 'Неверный логин или пароль'
+      }
     }
   },
 }
 </script>
 <template>
-  <div class="title">
-    <h1>
-      ПИС "ИДС"
-    </h1>
-    <p>Програмно информационная система для оценки индивидуальных достижений студента</p>
-  </div>
-  <div class="authGroup">
-    <img
-        src="https://avatars.mds.yandex.net/i?id=44bbde9b114294ee5bc1a6488f408bb46fa7943e-9854613-images-thumbs&n=13"/>
-    <div class="inputGroup">
-      <p>Вход в систему</p>
-      <input type="text" class="loginInput" placeholder="Логин" v-model="login"/>
-      <input type="password" class="passInput" placeholder="Пароль" v-model="password"/>
-      <div class="enterBtn" @click="inputValue()">Войти</div>
+  <div class="login">
+    <div class="title">
+      <h1>
+        ПИС "ИДС"
+      </h1>
+      <p>Програмно информационная система для оценки индивидуальных достижений студента</p>
+    </div>
+    <div class="authGroup">
+      <img
+          src="https://avatars.mds.yandex.net/i?id=44bbde9b114294ee5bc1a6488f408bb46fa7943e-9854613-images-thumbs&n=13"/>
+      <div class="inputGroup">
+        <p>Вход в систему</p>
+        <p class="error">{{ error }}</p>
+        <input type="text" class="loginInput" placeholder="Логин" v-model="login"/>
+        <input type="password" class="passInput" placeholder="Пароль" v-model="password"/>
+        <div class="enterBtn" @click="inputValue()">Войти</div>
+      </div>
     </div>
   </div>
 </template>
 
 <style scoped>
+.login {
+  padding-bottom: 50px;
+}
+
 .title {
   text-align: center;
 }
@@ -60,8 +69,17 @@ export default {
   margin: 50px 0;
 }
 
+p {
+  font-size: 24px;
+}
+
 .title p {
   margin-bottom: 50px;
+}
+
+.error {
+  font-size: 16px;
+  color: red;
 }
 
 .authGroup {

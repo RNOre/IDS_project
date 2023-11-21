@@ -8,6 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class PartificationFact extends Model
 {
     use HasFactory;
+    protected $guarded = false;
 
     public function event()
     {

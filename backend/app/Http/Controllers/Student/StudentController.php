@@ -4,9 +4,12 @@ namespace App\Http\Controllers\Student;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Student\StoreRequest;
+use App\Http\Resources\StudentGroupResource;
 use App\Http\Resources\StudentResource;
+use App\Http\Resources\StudentValuesResource;
 use App\Models\IndivAchivBall;
 use App\Models\Student;
+use App\Models\StudentGroup;
 use App\Models\TypeIndivAchiv;
 
 class StudentController extends BaseController
@@ -25,6 +28,7 @@ class StudentController extends BaseController
 
     public function store(StoreRequest $request)
     {
+
         $data = $request->validated();
 
         $student = $this->service->store($data);
@@ -50,26 +54,39 @@ class StudentController extends BaseController
         $studentsData = [];
         $students = Student::all();
         foreach ($students as $student) {
-            $studentId=$student->value;
-            $studentItem=['value'=>$studentId];
+            $studentId = $student->value;
+            $studentItem = ['value' => $studentId];
 
             for ($i = 1; $i <= 3; $i++) {
                 $ball = IndivAchivBall::all()->where('student_id', $student->id)->where('type_indiv_achiv_id', $i);
-                $summ = 0;
                 $type = TypeIndivAchiv::all()->where('id', $i);
-                $indivAchivItem=[];
-                foreach ($ball as $item) {
-                    $summ += $item->value;
+                if (($student->averageBall[0]->value == 5) && $i == 1) {
+                    $summ = 5;
+                } else {
+                    $summ = 0;
                 }
+                $indivAchivItem = [];
+                foreach ($ball as $item) {
+//                    dd($item->scales[0]->value);
+                    if (isset($item->scales[0]->value)) {
+//                        dump($item->scales);
+                        $summ += $item->scales[0]->value;
+                    }
+                }
+
                 foreach ($type as $item) {
-                    $indivAchivItem = ['name'=>$item->name, 'value'=>$summ];
+                    $indivAchivItem = ['name' => $item->name, 'value' => $summ];
                 }
                 array_push($studentItem, $indivAchivItem);
             }
+//            if($student->averageBall[0]->value==5){
+//                dump($student->id . ' mark: ' . $student->averageBall[0]->value);
+//            }
             array_push($studentsData, $studentItem);
         }
-
+//        die;
         return $studentsData;
+    }
 
 //        for ($i = 1; $i <= 3; $i++) {
 //            $ball = IndivAchivBall::all()->where('student_id', 1)->where('type_indiv_achiv_id', $i);
@@ -83,5 +100,9 @@ class StudentController extends BaseController
 //            }
 //            dump($summ);
 //        }
-    }
+        public function studentsValue()
+        {
+            return StudentValuesResource::collection(Student::all());
+        }
+
 }

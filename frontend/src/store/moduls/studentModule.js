@@ -3,7 +3,8 @@ import axios from "axios";
 export const students = {
     state: () => {
         return {
-            students: ''
+            students: '',
+            groups: ''
         }
     },
     mutations: {
@@ -12,14 +13,22 @@ export const students = {
         },
         deleteStudent(state, payload) {
             const newState = state.students.filter(student => student.id != payload);
-            state.students=newState;
+            state.students = newState;
+        },
+        getGroups(state, payload) {
+            state.groups = payload;
+        },
+
+        getValues(state, payload) {
+
+            state.values = payload;
         }
     },
     actions: {
         async getStudents({commit}) {
             try {
                 await axios.get('http://localhost:8876/api/v1/students')
-                    .then(resp => resp.data)
+                    .then(resp => resp.data.data)
                     .then(resp => commit('setStudents', resp));
             } catch (e) {
                 console.log(e);
@@ -27,17 +36,50 @@ export const students = {
         },
         async deleteStudent({commit}, payload) {
             try {
-                await axios.delete(`http://localhost:8876api/v1/students/${payload}`)
-                    .then(resp=>commit('deleteStudent', payload))
+                await axios.delete(`http://localhost:8876/api/v1/students/${payload}`)
+                    .then(commit('deleteStudent', payload))
             } catch (e) {
                 console.log(e)
+            }
+        },
+        async createStudent({commit}, payload) {
+            try {
+                let response = await axios.post('http://localhost:8876/api/v1/students', payload);
+                if (response.status == 201) {
+                    await axios.get('http://localhost:8876/api/v1/students')
+                        .then(resp => resp.data.data)
+                        .then(resp => commit('setStudents', resp));
+                }
+            } catch (e) {
+                console.log(e);
+            }
+        },
+        async getGroups({commit}) {
+            try {
+                await axios.get('http://localhost:8876/api/v1/groups')
+                    .then(resp => resp.data.data)
+                    .then(resp => commit('getGroups', resp));
+            } catch (e) {
+                console.log(e);
+            }
+        },
+
+        async getValues({commit}) {
+            try {
+                await axios.get('http://localhost:8876/api/v1/studentsValue')
+                    .then(resp => resp.data.data)
+                    .then(resp => commit('getValues', resp));
+            } catch (e) {
+                console.log(e);
             }
         }
     },
     getters: {
-        getStudentsData(state) {
-            console.log(state.students);
-            return state.students;
-        },
+        // getStudentsData(state) {
+        //     return state.students;
+        // },
+        // getGroups(state){
+        //     return state.groups
+        // }
     }
 }

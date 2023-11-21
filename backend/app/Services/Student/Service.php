@@ -6,6 +6,7 @@ use App\Models\AverageBall;
 use App\Models\Event;
 use App\Models\Student;
 use App\Models\StudentGroupRegistration;
+use Faker\Core\Number;
 use Illuminate\Support\Facades\DB;
 
 class Service
@@ -49,7 +50,7 @@ class Service
 //            'ed' => $student->enrollmentDate, 'dd' => $student->deductionDate];
 
         foreach ($student->indivAchivBall as $indivAchivBall) {
-            $ballItem = ['value' => $indivAchivBall->value, 'date' => $indivAchivBall->date,
+            $ballItem = ['value' => $indivAchivBall->scales[0]->value, 'date' => $indivAchivBall->date,
                 'type' => $indivAchivBall->typeIndivAchiv->name];
             array_push($balls, $ballItem);
         }
@@ -62,15 +63,20 @@ class Service
     public function store($data)
     {
         //TODO: передача averageBall
-        dd($data);
+//        dd($data);
         $studentData = ['value' => $data['value']];
         $studentId = Student::create($studentData)->id;
-
+        $averageBall=$data['averageBall'];
         unset($data['value']);
+        unset($data['averageBall']);
+//        $studentId=1;
         $groupRegistration = ['student_id' => $studentId];
         $groupRegistration = array_merge($data, $groupRegistration);
+//        dd($groupRegistration);
         $student = StudentGroupRegistration::create($groupRegistration);
-        $averageBall = ['date' => '2001-09-11', 'value' => $data->averageBall, 'student_id' => $studentId];
+//        dd($averageBall, $studentId);
+        $averageBall = ['date' => '2001-09-11', 'value' => (float)$averageBall, 'student_id' => $studentId];
+//        dd($averageBall);
         AverageBall::create($averageBall);
         return $student;
     }

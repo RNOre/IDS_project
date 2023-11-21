@@ -1,5 +1,4 @@
 export function fuzzification(x, a, b, c) {
-    console.log('fuzz')
     let uLeft = 0;
     let uCenter = 0;
     let uRight = 0;
@@ -51,9 +50,11 @@ export function fuzzification(x, a, b, c) {
     return [uLeft, uCenter, uRight];
 }
 
-export function andRules(f1, f2, tempObj) {
-    if (f1 >= f2) tempObj.temp = f2;
-    else tempObj.temp = f1;
+// export function andRules(f1, f2,tempObj) {
+export function andRules(f1, f2, f3,tempObj) {
+    tempObj.temp=Math.min(f1,f2,f3);
+    // if (f1 >= f2) tempObj.temp = f2;
+    // else tempObj.temp = f1;
     if (tempObj.temp >= tempObj.conclusion) tempObj.conclusion = tempObj.temp;
 }
 

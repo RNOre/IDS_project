@@ -13,11 +13,13 @@ import {ref} from 'vue';
 import {useToast} from "primevue/usetoast";
 import {useConfirm} from "primevue/useconfirm";
 import ConfirmDialog from 'primevue/confirmdialog';
+import AddStudent from "./AddStudent.vue";
 
 
 export default {
   name: 'DataItem',
   components: {
+    AddStudent,
     ShowStudent,
     TabView,
     TabPanel,
@@ -36,12 +38,12 @@ export default {
   },
   created() {
     this.$store.dispatch('getStudents');
-    this.studentData = this.$store.getters.getStudentsData;
+    // this.studentData = this.$store.getters.getStudentsData;
   },
   methods: {
     showStudent(id) {
       this.currentStudent = id;
-      this.visible = true;
+      this.showStudentVisible = true;
     },
     deleteStudent(id) {
       this.confirm.require({
@@ -70,7 +72,8 @@ export default {
   },
   data() {
     return {
-      visible: false,
+      showStudentVisible: false,
+      addStudentVisible: false,
       currentStudent: 0,
       eventData: [
         {
@@ -95,6 +98,7 @@ export default {
         {
           label: 'EditStudent',
           icon: 'pi pi-pencil',
+          severity: "danger",
           command: () => {
             this.showStudent(this.currentStudent);
           }
@@ -125,6 +129,7 @@ export default {
     <ConfirmDialog></ConfirmDialog>
     <div class="tabWrapper">
       <h1>Добавление/Редактирование/Просмотр данных</h1>
+      <Button class="addStudentBtn" label="Добавить студента" @click="addStudentVisible=true"/>
       <TabView>
         <TabPanel header="Студенты">
           <DataTable :value="studentData" stripedRows tableStyle="min-width: 50rem">
@@ -134,9 +139,14 @@ export default {
                     bodyStyle="text-align:center; vertical-align: middle"></Column>
             <Column style="min-width: 1rem" bodyStyle="text-align:center">
               <template #body="{data}">
-                <SpeedDial @click="setCurrentStudent(data)" :model="items" buttonClass="p-button-outlined"
-                           showIcon="pi pi-bars"
-                           :radius="70" type="circle" hideIcon="pi pi-times"/>
+                <!--                <SpeedDial @click="setCurrentStudent(data)" :model="items" buttonClass="p-button-outlined"-->
+                <!--                           showIcon="pi pi-bars"-->
+                <!--                           :radius="70" type="circle" hideIcon="pi pi-times"/>-->
+                <Button icon="pi pi-pencil" severity="warning" text rounded aria-label="test"
+                        @click="showStudent(data.id)"/>
+                <Button icon="pi pi-trash" severity="danger" text rounded aria-label="test"
+                        @click="deleteStudent(data.id)"/>
+                <Button icon="pi pi-info" text rounded aria-label="test" @click="showStudent(data.id)"/>
               </template>
             </Column>
           </DataTable>
@@ -191,8 +201,11 @@ export default {
       </TabView>
     </div>
     <!--show student modal-->
-    <Dialog v-model:visible="visible" modal header="Подробная информация о студенте" :style="{ width: '50vw' }">
+    <Dialog v-model:visible="showStudentVisible" modal header="Подробная информация о студенте" :style="{ width: '50vw' }">
       <ShowStudent :currentStudent="currentStudent"/>
+    </Dialog>
+    <Dialog v-model:visible="addStudentVisible"  @close="addStudentVisible=false" modal header="Добавление студента" :style="{ width: '50vw' }">
+      <AddStudent :currentStudent="currentStudent"/>
     </Dialog>
   </div>
 </template>
@@ -202,8 +215,8 @@ body {
   background-color: #eaeef3;
 }
 
-.dataItem {
-
+.addStudentBtn{
+  margin: 10px;
 }
 
 .dataItem h1 {
@@ -216,18 +229,6 @@ body {
   padding: 20px;
   border-radius: 12px
 }
-
-/*.editBtn {*/
-/*  text-align: center;*/
-/*  display: flex;*/
-/*  justify-content: space-around;*/
-/*}*/
-
-/*.editBtn div {*/
-/*  display: flex;*/
-/*  cursor: pointer;*/
-/*}*/
-
 tr {
   height: 100px;
 }

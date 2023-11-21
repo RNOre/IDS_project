@@ -3,7 +3,7 @@ import './style.css'
 import App from './App.vue'
 import 'bootstrap/dist/css/bootstrap.css'
 import 'bootstrap-vue/dist/bootstrap-vue.css'
-import {router} from "./routes/rotes.js";
+import {router} from "./routes/routes.js";
 import PrimeVue from "primevue/config";
 import "primevue/resources/themes/lara-light-indigo/theme.css";
 import {store} from "./store/index.js";
@@ -12,9 +12,11 @@ import Toast from 'primevue/toast';
 import 'primeicons/primeicons.css';
 import ConfirmationService from "primevue/confirmationservice";
 import Button from 'primevue/button';
+// import Vuelidate from 'vuelidate'
 
 const app = createApp(App);
 app.use(PrimeVue,{ ripple: true  });
+// app.use(Vuelidate);
 app.component('Button', Button);
 app.use(router);
 app.use(store);

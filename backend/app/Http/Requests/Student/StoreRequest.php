@@ -23,8 +23,9 @@ class StoreRequest extends FormRequest
     {
         return [
             'value'=>'',
+            'enrollmentDate'=>'',
             'student_group_id'=>'',
-            'enrollmentDate'=>'date'
+            'averageBall'=>''
         ];
     }
 }

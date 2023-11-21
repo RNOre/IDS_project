@@ -16,7 +16,7 @@ return new class extends Migration
             $table->integer('value');
             $table->timestamps();
 
-            $table->unsignedBigInteger('level_id');
+//            $table->unsignedBigInteger('level_id');
         });
     }
 

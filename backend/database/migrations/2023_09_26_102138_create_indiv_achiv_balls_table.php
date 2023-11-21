@@ -14,13 +14,13 @@ return new class extends Migration
         Schema::create('indiv_achiv_balls', function (Blueprint $table) {
             $table->id();
             $table->date('date');
-            $table->integer('value');
+//            $table->integer('value');
             $table->timestamps();
 
             $table->unsignedBigInteger('student_id');
             $table->foreign('student_id')->references('id')->on('students')->onDelete('cascade');
             $table->foreignId('type_indiv_achiv_id');
-            $table->foreignId('average_ball_id');
+//            $table->foreignId('average_ball_id');
 
         });
     }

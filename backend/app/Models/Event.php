@@ -9,6 +9,8 @@ class Event extends Model
 {
     use HasFactory;
 
+    protected $guarded = false;
+
     public function educInst()
     {
         return $this->belongsTo(EducInst::class);
